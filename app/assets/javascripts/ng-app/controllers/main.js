@@ -66,7 +66,10 @@ angular.module("connectusApp")
       },
       zoom: 10
     };
-    $scope.options = {scrollwheel: false};
+    $scope.options = {
+      scrollwheel: false
+    };
+    $scope.showWeather = true;ç
   };
 
   
@@ -124,6 +127,7 @@ angular.module("connectusApp")
                   width: 45
                 }
               },
+        animation: "Animation.BOUNCE"
     }];
   };
 

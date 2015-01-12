@@ -8,11 +8,11 @@
     }
 
     &.ng-enter{
-        @include transition(.2s ease-out all .2s);
+        @include transition(.5s ease-out all .5s);
     }
 
     &.ng-leave{
-        @include transition(.2s ease-out all);
+        @include transition(.5s ease-out all);
     }
 
     &.ng-enter,

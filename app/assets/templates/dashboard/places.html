@@ -1,31 +1,26 @@
-<div class="text-center"> 
-  <div ng-hide="selectedPlace">
-    <div ng-repeat= "place in placesHash" >
-      <button id="suggested-places" class="btn btn-primary">
-        <div ng-click="selectPlace(place);">
-          </h1>{{place.name}}</h1></br>
-          <img src="{{place.rating_img_url}}"/>  
-        </div>
-      </button>
+<div class="row">
+  <div class="col-xs-10 col-md-12 text-center"> 
+    <div ng-hide="selectedPlace">
+      <div ng-repeat= "place in placesHash" >
+        <button id="suggested-places" class="btn btn-primary">
+          <div ng-click="selectPlace(place);">
+            </h1>{{place.name}}</h1></br>
+            <img src="{{place.rating_img_url}}"/>  
+          </div>
+        </button>
+      </div>
     </div>
   </div>
-</div>
-<div id="nested-view" ng-show="selectedPlace">
-  <div class="text-right">
-    <button class="btn">
-      <div id="back" ng-click="clearSelectedPlace();">X</div>
-    </button>
-  </div>
-  <h1 class="title"><a href="{{selectedPlace.url}}" target="_blank">{{selectedPlace.name}}</a></h1>
-  <div class="well" > 
-    <div class="row">
-      <div class="col-sm-6 col-sm-offset-3 text-center">
-        <p>{{selectedPlace.summary}}</p>
-        </div>
+  <div id="nested-view" class="col-xs-offset-1 col-xs-10 text-center" ng-show="selectedPlace">
+    <div class="text-right">
+      <button class="btn" id="back" ng-click="clearSelectedPlace();">X</button>
     </div>
-    <h3><a href="https://maps.google.com?q={{selectedPlace.address}}" target="_blank">{{selectedPlace.address}}</a></h3>
+    <h1 class="title"><a href="{{selectedPlace.url}}" target="_blank">{{selectedPlace.name}}</a></h1>
+      <p>{{selectedPlace.summary}}</p>
+
+      <h3><a href="https://maps.google.com?q={{selectedPlace.address}}" target="_blank">{{selectedPlace.address}}</a></h3>
     </br>
-    <button class="btn btn-primary" ng-click="textAddress(selectedPlace.name, selectedPlace.address)">text address</button>
-    <button class="btn btn-primary" ng-click="viewInMap();">View in Map</button>
+    <button class="btn btn-primary" ng-click="viewInMap();">View in Map</button> 
+    <button class="btn btn-primary" ng-click="textAddress(selectedPlace.name, selectedPlace.address)">Text Address</button>
   </div>
 </div>

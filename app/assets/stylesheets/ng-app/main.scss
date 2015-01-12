@@ -9,13 +9,16 @@ body {
     position: relative;
     width: 100%;
 }
+
+.dashboard-view-container{
+    position: relative;
+}
+.dashboard-ui-view{
+    @extend .main-view-container;
+}
 .changeColor {
   color: lightblue;
   }
-
-.title {
-  padding-top: 50px;
-}
 
 a:hover {
   text-decoration: none;
@@ -47,25 +50,15 @@ a:hover {
   }
 #nested-view{
   height: 38em;
-  border: 1px solid white;
 }
 
 #wrapper {
   position: absolute;
 }
 
-.dashboard-view-container{
-    position: relative;
-}
-.dashboard-ui-view{
-    @extend .main-view-container;
-}
-
 .angular-google-map-container {
-  width: 50em;
   height: 30em;
   color: black;
-  padding-left: 4em;
 }
 .groupForm {
   padding-top: 50px;
@@ -84,8 +77,17 @@ a:hover {
 }
 
 #suggested-places {
-  width: 36.5em;
+  width: 33em;
   height: 4em;
+}
+
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+#suggested-places {
+  width: 20em;
+  height: 4em;
+}
 }
 
 

@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row text-center"> 
-    <div class="col-sm-4">
+    <div class="col-sm-offset-1 col-sm-4 col-lg-4">
       <form class="groupForm" ng-submit="submitForm();">
         <div class="well" >
-          <h3>Connect Group</h3>
           <table class="table">
+            <header><h3>Connect Group</h3></header>
             <tbody>
               <tr ng-repeat="user in userList" ng-class="{changeColor: user.selected}">
                <td>
@@ -18,7 +18,7 @@
         </div>
       </form>
     </div> 
-    <div id="nested" class="col-sm-7 col-sm-offset-1">
+    <div id="nested" class="col-sm-6">
         <div class="dashboard-view-container">
             <div class="dashboard-ui-view" ui-view></div>
         </div>

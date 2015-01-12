@@ -69,7 +69,7 @@ angular.module("connectusApp")
     $scope.options = {
       scrollwheel: false
     };
-    $scope.showWeather = true;ç
+    $scope.showWeather = true;
   };
 
   

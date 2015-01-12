@@ -1,19 +1,22 @@
 Rails.application.routes.draw do
-  
-  root 'static_pages#welcome'
-
-  match '/app',     to: 'application#index',    via: 'get'
-  match '/main',    to: 'application#index',    via: 'get'
+  resources :users, except: [:show]
+  # match '/main',    to: 'application#index',    via: 'get'
   match '/places',  to: 'places#search_places', via: 'get'
   match '/texts',   to: 'texts#send_to_all',    via: 'get'
+  
 
-  resources :users, except: [:show]
-  resources :sessions, only: [:new, :create, :destroy]
+  root 'application#index'
+  get "*path.html" => "application#index", :layout => 0
+  get '*path' => 'application#index'
 
-  match '/signup',  to: 'users#new',            via: 'get'
-  match '/signin',  to: 'sessions#new',         via: 'get'
-  match '/signout', to: 'sessions#destroy',     via: 'delete'
-  match '/about',   to:  'static_pages#about',  via: 'get' 
+
+
+
+
+  # match '/signup',  to: 'users#new',            via: 'get'
+  # match '/signin',  to: 'sessions#new',         via: 'get'
+  # match '/signout', to: 'sessions#destroy',     via: 'delete'
+  # match '/about',   to:  'static_pages#about',  via: 'get' 
   
   # root 'static_pages#welcome'
 

@@ -8,4 +8,6 @@ json.array!(@places) do |place|
   json.address place[:address]
   json.summary place[:summary]
   json.closed place[:closed]
+  json.rating_img_url place[:rating_img_url]
+  json.website place[:website]
 end

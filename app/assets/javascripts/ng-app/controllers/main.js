@@ -1,7 +1,7 @@
 angular.module("connectusApp")
 .controller("MainCtrl", 
-            ['$scope', '$log', 'userService', 'placesService','textService', 'uiGmapGoogleMapApi', 
-            function ($scope, $log, userService, placesService, textService, uiGmapGoogleMapApi) {
+            ['$scope', '$log', '$state', '$rootScope', 'userService', 'placesService','textService', 'uiGmapGoogleMapApi', 
+            function ($scope, $log, $state, $rootScope,  userService, placesService, textService, uiGmapGoogleMapApi) {
 
   uiGmapGoogleMapApi.then(function(/* maps */) {
       // can manipulate the map here.
@@ -16,6 +16,7 @@ angular.module("connectusApp")
   };
 
   $scope.getUsers();
+
     
   $scope.selectedUsers = function() {
     //this line resets the userList so you can update correctly
@@ -60,14 +61,15 @@ angular.module("connectusApp")
   $scope.setMap = function() {
     $scope.map = {
       center: {
-        latitude: $scope.averageLatitude,
-        longitude: $scope.averageLongitude
+        latitude: 33,
+        longitude: -84
       },
       zoom: 10
     };
     $scope.options = {scrollwheel: false};
   };
 
+  
   $scope.setMidPointMarker = function() {
     $scope.midPointMarker = [
       { id: 0,
@@ -96,6 +98,8 @@ angular.module("connectusApp")
     $scope.setUsersMarkers();
   };
 
+  $scope.showMap();
+
   $scope.getPlaces = function() {
     placesService.getAllPlaces($scope.averageLatitude, $scope.averageLongitude).success(function(data) {
       $scope.placesHash = data;
@@ -120,24 +124,35 @@ angular.module("connectusApp")
                 }
               },
     }];
-    console.log($scope.selectedPlaceMarker.coords);
   };
 
   $scope.selectPlace = function(place) {
-    $scope.selectedPlace = place;
+    $rootScope.selectedPlace = place;
     $scope.setPlaceMarker();
   };
 
+
   $scope.clearSelectedPlace = function() {
-    $scope.selectedPlace = null;
+    $rootScope.selectedPlace = null;
   };
 
   $scope.showPlaces = function() {
+    $rootScope.selectedPlace = null;
+    $state.go('dashboard.places');
     $scope.selectedUsers();
     $scope.getMidPoint();
     $scope.getPlaces();
+  };
+
+  $scope.viewInMap = function() {
+    $state.go('dashboard.map');
     $scope.showMap();
   };
+
+  $scope.backToSelectedPlace = function() {
+      $state.go('dashboard.places');
+    };
+
 
   $scope.textAddress = function(place, address) {
     textService.textUsers($scope.users, place, address).success(function() {
@@ -146,5 +161,5 @@ angular.module("connectusApp")
       alert('Something went wrong!');
     });
   };
-  
+
 }]);

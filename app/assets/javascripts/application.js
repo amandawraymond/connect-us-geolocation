@@ -15,11 +15,13 @@
 //= require bootstrap-sass-official/assets/javascripts/bootstrap-sprockets.js
 //= require angular
 //= require angular-animate
+//= require angular-rails-templates
 //= require angular-bootstrap
 //= require angular-animate/angular-animate.js
 //= require angular-ui-router
 //= require lodash/dist/lodash.compat.js
 //= require angular-google-maps/dist/angular-google-maps.js
-//= require_tree .
 //= require_tree ../templates
+//= require_tree .
+
 

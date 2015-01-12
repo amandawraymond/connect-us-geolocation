@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row text-center"> 
+    <div class="col-sm-4">
+      <form class="groupForm" ng-submit="submitForm();">
+        <div class="well" >
+          <h3>Connect Group</h3>
+          <table class="table">
+            <tbody>
+              <tr ng-repeat="user in userList" ng-class="{changeColor: user.selected}">
+               <td>
+                 <input type="checkbox" class="styled" ng-model="user.selected" ng-click="color();">
+               </td>
+               <td><h4>{{user.name}}</h4></td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="submit" class="btn btn-primary" ng-click="showPlaces()">Submit</button>
+        </div>
+      </form>
+    </div> 
+    <div id="nested" class="col-sm-7 col-sm-offset-1">
+        <div class="dashboard-view-container">
+            <div class="dashboard-ui-view" ui-view></div>
+        </div>
+    </div>
+  </div>
+</div>

@@ -27,7 +27,7 @@ gem 'httparty'
 
 gem 'geocoder'
 gem 'bower-rails'
-gem 'angularjs-rails'
+gem 'angular-rails-templates'
 # gem 'angular-rails-templates'
 
 group :production, :staging do

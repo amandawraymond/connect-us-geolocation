@@ -7,7 +7,7 @@ class PlacesController < ActionController::Base
     latitude = params[:latitude] || 33.771112
     longitude = params[:longitude] || -84.367090
     coordinates = { latitude: latitude, longitude: longitude }
-    params = { term: 'free wifi' }
+    params = { term: 'free wifi', limit: 10, sort: 1 }
     businesses = Yelp.client.search_by_coordinates(coordinates, params).businesses
     @places = []
     businesses.each do |biz|
@@ -21,6 +21,8 @@ class PlacesController < ActionController::Base
       place[:address] = biz.location.display_address.join(",")
       place[:summary] = biz.snippet_text
       place[:closed] = biz.is_closed
+      place[:rating_img_url] = biz.rating_img_url
+      place[:website] = biz.url
       @places << place
     end
     @places

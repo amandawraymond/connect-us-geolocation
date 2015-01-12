@@ -1,33 +1,75 @@
 @import "bootstrap";
+@import "globals";
 
 body {
   background-color: black;
+  color: white;
 }
-.help {
-  padding-left: 100px;
-  color:red;
-  font-size: 80px;
+.container {
+    position: relative;
+    width: 100%;
+}
+.changeColor {
+  color: lightblue;
+  }
+
+a:hover {
+  text-decoration: none;
+}
+
+#content {
+  position: relative;
+  max-width: 1500px; 
+  line-height: 1.5;
+  min-width: 1000px;
+  text-align: center;
+  margin: 0 auto;
+    h1 {
+    font-size: 60px;
+    line-height: 65px;
+    }
+  }
+#nested {
+  position: relative;
+  top: 100px;
+  margin-bottom: 2em;
+  h1 {
+    color: lightblue;
+  }
+  h3 {
+    color: white;
+    text-decoration: none;
+  }
+  }
+#nested-view{
+  height: 38em;
+  border: 1px solid white;
+}
+
+#wrapper {
+  position: absolute;
+}
+
+.dashboard-view-container{
+    position: relative;
+}
+.dashboard-ui-view{
+    @extend .main-view-container;
 }
 
 .angular-google-map-container {
-  width: 600px;
-  height: 400px;
-  margin: auto;
+  width: 57.75em;
+  height: 30em;
 }
-
-.navbar {
-  background-color: black;
-  border: none;
-  border-radius: 0;
-  color: white;
+.groupForm {
+  padding-top: 50px;
 }
 
 .well {
   background-color: black;
   border-color: black;
-  padding: 40px;
   h1 {
-    color: white;
+    color: lightblue;
   }
   p {
     color: white;
@@ -35,131 +77,18 @@ body {
 
 }
 
-#well-signin {
-  margin-top: 80px;
-  color: white;
-}
-
-#well-signup {
-  color: white;
-}
-
-#home {
-  padding-top: 150px;
-  h1 {
-    font-size: 50px;
-  }
-  p {
-    font-size: 15px;
-  }
-}
-
-h1, h2, h3, h4 {
-  text-align: center;
-}
-
-#background-welcome {
-  background-size: cover;
-  position: absolute; 
-  top: -50px; 
-  left: 0;  
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-}
-
-#background-about {
-  position: absolute; 
-  top: -50px; 
-  left: 0;  
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-}
-
-#background-signin {
-  position: absolute; 
-  top: -50px; 
-  left: 0;  
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-}
-
-#background-signup {
-  position: absolute; 
-  top: -50px; 
-  left: 0;  
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-}
-
-#background-main {
-  background-image: url("//i.imgur.com/YT0akmL.png?1");
-  background-size: cover;
-  background-repeat: repeat-y;
-  position: absolute; 
-  top: -50px; 
-  left: 0;  
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-}
-
-.groupForm {
-  padding-top: 200px;
-  color: white;
-}
-.title {
-  color: white;
-}
 #suggested-places {
   width: 36.5em;
   height: 4em;
 }
 
-#selected-place {
-  color: white;
-}
 
 #back {
-  color: blue;
+  font-color: white;
   text-decoration: none;
+  font-size: 2em;
+}
+.btn {
+  background-color: black;
 }
 
-
-/*.panel-heading {
-  border: 1px solid #6AA7D3;
-  border-left-width: 10px;
-  background-color: #C0C0C0;
-  color: #6AA7D3;
-}
-.panel-body {
-  font-size: 20px;
- }
- .lead {
-  font-size: 30px;
-  margin-bottom: 0px;
- } 
-.place-details {
-  max-height: 100px;
-  transition: .8s;
-  overflow: hidden;
-}
-.place-button {
-  width: 25em;
-  height: 4em;
-}
-
-.place-details.hidden {
-  max-height: 0;
-}
-.highlighted {
-  background: red;
-}
-li.highlighted:hover {
-  background: red;
-}*/
-
-  

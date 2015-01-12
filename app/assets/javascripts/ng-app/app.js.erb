@@ -3,7 +3,8 @@ angular
         'ngAnimate',
         'ui.router',
         'ui.bootstrap',
-        'uiGmapgoogle-maps'
+        'uiGmapgoogle-maps',
+        'templates'
     ])
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'uiGmapGoogleMapApiProvider',
             function ($stateProvider, $urlRouterProvider, $locationProvider, uiGmapGoogleMapApiProvider) {
@@ -19,28 +20,35 @@ angular
        * Routes and States
        */
       $stateProvider
-          .state('main', {
-              url: '/',
-              templateUrl: '<%= asset_path "main.html" %>',
+          .state('dashboard', {
+              abstract: true,
+              url: '/dashboard',
+              templateUrl: 'dashboard/main.html',
               controller: 'MainCtrl'
           })
-          .state('about', {
-              url: '/about',
-              templateUrl: '<%= asset_path "about.html" %>',
-              controller: 'AboutCtrl'
-          })
-           .state('home', {
-              url: '/home',
-              templateUrl: '<%= asset_path "home.html" %>',
-              controller: 'HomeCtrl'
-          });
+              // the default route when someone hits dashboard
+              .state('dashboard.directions', {
+                  url: '',
+                  templateUrl: 'dashboard/directions.html',
+                  controller: 'MainCtrl'
+              })
+              .state('dashboard.places', {
+                  url: '/places',
+                  templateUrl: 'dashboard/places.html',
+                  controller: 'MainCtrl'
+              })
+              .state('dashboard.map', {
+                  url: '/map',
+                  templateUrl: 'dashboard/map.html',
+                  controller: 'MainCtrl'
+              });   
 
 
       // default fall back route
-      $urlRouterProvider.otherwise('/');
+      $urlRouterProvider.otherwise('/dashboard');
 
       // enable HTML5 Mode for SEO
-      // $locationProvider.html5Mode(true);
+      $locationProvider.html5Mode(true);
 
     
    }]);   

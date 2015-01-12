@@ -61,8 +61,8 @@ angular.module("connectusApp")
   $scope.setMap = function() {
     $scope.map = {
       center: {
-        latitude: 33,
-        longitude: -84
+        latitude: $scope.averageLatitude,
+        longitude: $scope.averageLongitude
       },
       zoom: 10
     };
@@ -92,14 +92,6 @@ angular.module("connectusApp")
     $scope.markerList =  $scope.users;
   };
 
-  $scope.showMap = function() {
-    $scope.setMap();
-    $scope.setMidPointMarker();
-    $scope.setUsersMarkers();
-  };
-
-  $scope.showMap();
-
   $scope.getPlaces = function() {
     placesService.getAllPlaces($scope.averageLatitude, $scope.averageLongitude).success(function(data) {
       $scope.placesHash = data;
@@ -107,12 +99,21 @@ angular.module("connectusApp")
       alert('Something went wrong!');
     });
   };
+
+  $scope.selectPlace = function(place) {
+    $rootScope.selectedPlace = place;
+  };
+
+  $scope.clearSelectedPlace = function() {
+    $rootScope.selectedPlace = null;
+  };
+
   $scope.setPlaceMarker = function() {
-    var coords = $scope.selectedPlace.coords.hash;
-    var id = $scope.selectedPlace.id;
-    var name = $scope.selectedPlace.name;
+    var coords = $rootScope.selectedPlace.coords.hash;
+    var id = $rootScope.selectedPlace.id;
+    var name = $rootScope.selectedPlace.name;
     
-    $scope.selectedPlaceMarker = [
+    $rootScope.selectedPlaceMarker = [
       {
         id: id,
         name: name,
@@ -120,20 +121,10 @@ angular.module("connectusApp")
         icon: { url:"http://www.clker.com/cliparts/r/J/F/7/y/4/placemark-th.png",
                 scaledSize: {
                   height: 40,
-                  width: 40
+                  width: 45
                 }
               },
     }];
-  };
-
-  $scope.selectPlace = function(place) {
-    $rootScope.selectedPlace = place;
-    $scope.setPlaceMarker();
-  };
-
-
-  $scope.clearSelectedPlace = function() {
-    $rootScope.selectedPlace = null;
   };
 
   $scope.showPlaces = function() {
@@ -147,7 +138,16 @@ angular.module("connectusApp")
   $scope.viewInMap = function() {
     $state.go('dashboard.map');
     $scope.showMap();
+    $scope.setPlaceMarker();
   };
+
+  $scope.showMap = function() {
+    $scope.setMap();
+    $scope.setMidPointMarker();
+    $scope.setUsersMarkers();
+  };
+
+  $scope.showMap();
 
   $scope.backToSelectedPlace = function() {
       $state.go('dashboard.places');

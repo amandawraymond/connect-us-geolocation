@@ -6,12 +6,26 @@ angular.module("connectusApp")
   uiGmapGoogleMapApi.then(function(/* maps */) {
       // can manipulate the map here.
     });
+  
+
+  $scope.getGeolocation = function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+          $scope.$apply(function(){
+            // console.log("position" + JSON.stringify(position.coords));
+           $scope.position = position.coords;
+          });
+        });
+      }
+  };
+
+  $scope.getGeolocation();
 
   $scope.getUsers = function() {
     userService.getAllUsers().success(function(data) {
       $scope.userList = data;
     }).error(function() {
-      alert('Something went wrong!');
+      alert('Something went wrong retrieving contact list!');
     });
   };
 
@@ -21,31 +35,43 @@ angular.module("connectusApp")
   $scope.selectedUsers = function() {
     //this line resets the userList so you can update correctly
     var users = $scope.userList;
-    //this line filter out for users that were selected upon a submit click
     $scope.users = _.filter(users, function(user) {
       return user.selected === true;
     });
     return $scope.users;
   };
 
+
+
   $scope.setLengthOfUsers = function() {
+    // the below if statement accounts for user input of current geolocation
+    if ($scope.geolocation) {
+      $scope.length = $scope.users.length +   1;
+    } else {
     $scope.length = $scope.users.length;
+    }
   };
 
   $scope.getAverageLatitude = function() {
     var sumLatitude = _.reduce( $scope.users, function( memory, user) {
     return memory + user.latitude;
     }, 0 );
-    
-    $scope.averageLatitude = sumLatitude/$scope.length;
+    if ($scope.geolocation) {
+      $scope.averageLatitude = (sumLatitude + $scope.position.latitude) /$scope.length;
+    } else {
+      $scope.averageLatitude = sumLatitude/$scope.length;
+    }
   };  
 
   $scope.getAverageLongitude = function() {
     var sumLongitude = _.reduce( $scope.users, function( memory, user) {
       return memory + user.longitude;
     }, 0 );
-    
-    $scope.averageLongitude = sumLongitude/$scope.length;
+    if ($scope.geolocation) {
+      $scope.averageLongitude = (sumLongitude + $scope.position.longitude)/$scope.length;
+    } else {
+      $scope.averageLongitude = sumLongitude/$scope.length;
+    }
   };
 
   $scope.getMidPoint = function() {
@@ -73,12 +99,12 @@ angular.module("connectusApp")
   };
 
   
-  $scope.setMidPointMarker = function() {
-    $scope.midPointMarker = [
+  $scope.setGeolocationMarkers = function() {
+    $scope.geolocationMarker = [
       { id: 0,
         coords: {
-          latitude: $scope.averageLatitude,
-          longitude: $scope.averageLongitude
+          latitude: $scope.position.latitude,
+          longitude: $scope.position.longitude
         },
         icon: { url:"http://www.clker.com/cliparts/c/I/g/P/d/h/google-maps-pin-blue-th.png",
                 scaledSize: {
@@ -86,20 +112,27 @@ angular.module("connectusApp")
                   width: 40
                 }
               },
-        name: "Midpoint"
+        name: "Your Location"
       }
     ];
+  };
+
+  $scope.checkedGeolocation = function () {
+    $scope.geolocation = true;
+    $scope.setGeolocationMarkers();
+
   };
 
   $scope.setUsersMarkers = function() {
     $scope.markerList =  $scope.users;
   };
 
+
   $scope.getPlaces = function() {
     placesService.getAllPlaces($scope.averageLatitude, $scope.averageLongitude).success(function(data) {
       $scope.placesHash = data;
     }).error(function() {
-      alert('Something went wrong!');
+      console.log('Something went wrong when searching for places!');
     });
   };
 
@@ -147,7 +180,6 @@ angular.module("connectusApp")
 
   $scope.showMap = function() {
     $scope.setMap();
-    $scope.setMidPointMarker();
     $scope.setUsersMarkers();
   };
 
@@ -162,7 +194,7 @@ angular.module("connectusApp")
     textService.textUsers($scope.users, place, address).success(function() {
       alert('Successfully texted group!');
     }).error(function() {
-      alert('Something went wrong!');
+      console.log('Something went wrong when attempting to text your group!');
     });
   };
 

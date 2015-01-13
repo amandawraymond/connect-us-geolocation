@@ -6,6 +6,12 @@
           <table class="table">
             <header><h3>Connect Group</h3></header>
             <tbody>
+              <td>
+                <input type="checkbox" ng-model="geolocation" ng-click="checkedGeolocation()">
+              </td>
+              <td>
+                <h4 class="geolocation">My Current location</h4>
+              </td>
               <tr ng-repeat="user in userList" ng-class="{changeColor: user.selected}">
                <td>
                  <input type="checkbox" class="styled" ng-model="user.selected" ng-click="color();">
@@ -14,7 +20,7 @@
               </tr>
             </tbody>
           </table>
-          <button type="submit" class="btn btn-primary" ng-click="showPlaces()">Submit</button>
+          <button type="submit" class="btn btn-warning" ng-click="showPlaces()">Submit</button>
         </div>
       </form>
     </div> 

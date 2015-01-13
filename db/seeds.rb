@@ -6,12 +6,11 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
 User.all.destroy
-User.create([
-  {name:"Amanda Raymond", email:"amandawraymond@gmail.com", phone_number:8042918214, street_address:"105 sycamore place",          city:"Decatur", state:"GA"},
-  {name:"Carson Raymond", email:"carsonraymond@gmail.com",  phone_number:8044759597, street_address:"105 sycamore place",          city:"Decatur", state:"GA"},
-  {name:"Chris Markel",   email:"cbm@gmail.com",            phone_number:4042180454, street_address:"1110 Church St",               city:"smyrna", state:"GA"},
-  {name:"Coleman",        email:"coleman@gmail.com",        phone_number:8044759597, street_address:"3562 piedmont rd NE",          city:"Atlanta", state:"GA"},
-  {name:"Gerry Pass",     email:"gerrypass@gmail.com",      phone_number:4049539976, street_address:"273 Buckhead Avenue Northeast", city:"Atlanta", state:"GA"}
-  ])
+users= User.create([
+{name:"Amanda Raymond", email:"amandawraymond@gmail.com", phone_number:8042918214, street_address:"105 sycamore place", city:"Decatur", state:"GA", zip_code:30030},
+{name:"Carson Raymond", email:"carsonraymond@gmail.com",  phone_number:8044759597, street_address:"105 sycamore place", city:"Decatur", state:"GA", zip_code:30030},
+{name:"Chris Markel",   email:"cbm@gmail.com",            phone_number:4042180454, street_address:"1110 Church St", city:"smyrna", state:"GA", zip_code:30080},
+{name:"Coleman",        email:"coleman@gmail.com",        phone_number:8044759597, street_address:"3562 piedmont rd NE", city:"Atlanta", state:"GA", zip_code:30305},
+{name:"Gerry Pass",     email:"gerrypass@gmail.com",      phone_number:4049539976, street_address:"273 Buckhead Avenue Northeast", city:"Atlanta", state:"GA", zip_code:30305}
+])

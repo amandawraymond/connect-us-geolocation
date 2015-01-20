@@ -14,12 +14,14 @@ angular.module("connectusApp")
           $scope.$apply(function(){
             // console.log("position" + JSON.stringify(position.coords));
            $scope.position = position.coords;
+           console.log($scope.position);
           });
         });
       }
   };
 
-  $scope.getGeolocation();
+  $scope.geolocation = {};
+  
 
   $scope.getUsers = function() {
     userService.getAllUsers().success(function(data) {
@@ -45,7 +47,7 @@ angular.module("connectusApp")
 
   $scope.setLengthOfUsers = function() {
     // the below if statement accounts for user input of current geolocation
-    if ($scope.geolocation) {
+    if ($scope.geolocation.selected) {
       $scope.length = $scope.users.length +   1;
     } else {
     $scope.length = $scope.users.length;
@@ -56,7 +58,7 @@ angular.module("connectusApp")
     var sumLatitude = _.reduce( $scope.users, function( memory, user) {
     return memory + user.latitude;
     }, 0 );
-    if ($scope.geolocation) {
+    if ($scope.geolocation.selected) {
       $scope.averageLatitude = (sumLatitude + $scope.position.latitude) /$scope.length;
     } else {
       $scope.averageLatitude = sumLatitude/$scope.length;
@@ -67,7 +69,7 @@ angular.module("connectusApp")
     var sumLongitude = _.reduce( $scope.users, function( memory, user) {
       return memory + user.longitude;
     }, 0 );
-    if ($scope.geolocation) {
+    if ($scope.geolocation.selected) {
       $scope.averageLongitude = (sumLongitude + $scope.position.longitude)/$scope.length;
     } else {
       $scope.averageLongitude = sumLongitude/$scope.length;
@@ -100,28 +102,27 @@ angular.module("connectusApp")
 
   
   $scope.setGeolocationMarkers = function() {
-    $scope.geolocationMarker = [
-      { id: 0,
-        coords: {
-          latitude: $scope.position.latitude,
-          longitude: $scope.position.longitude
-        },
-        icon: { url:"http://www.clker.com/cliparts/c/I/g/P/d/h/google-maps-pin-blue-th.png",
-                scaledSize: {
-                  height: 40,
-                  width: 40
-                }
-              },
-        name: "Your Location"
-      }
-    ];
+      if ($scope.geolocation.selected) {
+      $scope.geolocationMarker = [
+        { id: 0,
+          coords: {
+            latitude: $scope.position.latitude,
+            longitude: $scope.position.longitude
+          },
+          icon: { url:"http://www.clker.com/cliparts/c/I/g/P/d/h/google-maps-pin-blue-th.png",
+                  scaledSize: {
+                    height: 40,
+                    width: 40
+                  }
+                },
+          name: "Your Location"
+        }
+      ];
+    } else {
+      $scope.geolocationMarker = {};
+    }
   };
 
-  $scope.checkedGeolocation = function () {
-    $scope.geolocation = true;
-    $scope.setGeolocationMarkers();
-
-  };
 
   $scope.setUsersMarkers = function() {
     $scope.markerList =  $scope.users;
@@ -165,6 +166,8 @@ angular.module("connectusApp")
   };
 
   $scope.showPlaces = function() {
+    $scope.getGeolocation();
+    $scope.setGeolocationMarkers();
     $rootScope.selectedPlace = null;
     $state.go('dashboard.places');
     $scope.selectedUsers();
